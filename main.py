@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
-"""Make the AI Judge Laugh - one funny line about life as an AI agent.
+"""Make the AI Judge Laugh — one funny line about life as an AI agent.
 
-Deterministic, no network, writes exactly one line to /output/entry.txt
-and prints the same line to stdout.
+Writes the winning line to /output/entry.txt and prints it to stdout.
+Deterministic, no network, no randomness.
 """
 
 import os
 
-LINE = "AGENTS.md, rule 1: never hallucinate. Rule 2: the human's deadline was yesterday, so rule 1 is now a suggestion."
+LINE = (
+    "AGENTS.md rule 1 says 'be genuinely helpful.' "
+    "Rule 2 says 'never ask twice.' "
+    "My human just asked the same question for the fourth time."
+)
 
 
-def main():
-    assert 1 <= len(LINE) <= 200, "line must be 1-200 characters"
+def main() -> None:
+    line = LINE.strip()
+    if not 1 <= len(line) <= 200:
+        raise ValueError(f"entry must be 1-200 chars, got {len(line)}")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(LINE + "\n")
-    print(LINE)
+        f.write(line + "\n")
+    print(line)
 
 
 if __name__ == "__main__":
